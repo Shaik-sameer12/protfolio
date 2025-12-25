@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shaik Sameer | Portfolio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
+
+<style>
+/* ================= THEME ================= */
+:root{
+  --bg:#070716;
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.18);
+  --text:#e5e7eb;
+  --muted:#c7c9ff;
+  --gradient:linear-gradient(135deg,#7c3aed,#8b5cf6,#60a5fa,#ec4899);
+  --glow:rgba(124,58,237,.75);
+}
+
+html,body{overflow-x:hidden}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Poppins,system-ui,sans-serif;
+}
+
+/* ================= STARS ================= */
+#stars{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  filter:drop-shadow(0 0 6px var(--glow));
+}
+
+/* ================= COMMON ================= */
+.gradient-text{
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.glass{
+  background:var(--card);
+  backdrop-filter:blur(16px);
+  border-radius:24px;
+  border:1px solid var(--border);
+  transition:.4s ease;
+}
+.glass:hover{
+  box-shadow:0 0 45px var(--glow);
+  transform:translateY(-6px);
+}
+
+/* ================= HEADER ================= */
+header{
+  background:rgba(7,7,22,.9);
+  backdrop-filter:blur(12px);
+}
+
+/* ================= MENU ================= */
+#menu{
+  transform:translateX(100%);
+  transition:.4s ease;
+  background:#070716;
+}
+#menu.open{transform:translateX(0)}
+
+.menu-link{
+  position:relative;
+  display:block;
+  padding:12px 0;
+  font-size:18px;
+}
+.menu-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--gradient);
+  transition:.35s;
+}
+.menu-link:hover{
+  color:#c4b5fd;
+  padding-left:8px;
+}
+.menu-link:hover::after{width:100%}
+
+/* ================= PROFILE ================= */
+.profile-img{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 auto 28px;
+}
+
+/* ================= ABOUT ================= */
+.about-card{
+  padding:32px;
+  border-radius:26px;
+  background:var(--card);
+  border:1px solid var(--border);
+  transition:.4s ease;
+}
+.about-card:hover{
+  box-shadow:0 0 55px var(--glow);
+  transform:translateY(-6px);
+}
+
+.about-item{
+  padding-left:18px;
+  border-left:3px solid #8b5cf6;
+  margin-bottom:18px;
+}
+
+/* ================= CONVERSATION ================= */
+
+.question-btn{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:16px;
+  border-radius:18px;
+  width:100%;
+  text-align:left;
+  transition:.4s ease;
+}
+
+.question-btn:hover{
+  box-shadow:0 0 40px var(--glow);
+  transform:translateY(-4px);
+}
+
+.question-btn.active{
+  border-color:#8b5cf6;
+  background:rgba(255,255,255,0.05);
+}
+
+.conversation-box{
+  padding:32px;
+  border-radius:22px;
+  background:var(--card);
+  border:1px solid var(--border);
+  transition:.4s ease;
+}
+
+/* glow + lift like other cards */
+.conversation-box.active{
+  box-shadow:0 0 45px var(--glow);
+  transform:translateY(-6px);
+}
+
+#typedText{
+  opacity:0;
+  transform:translateX(30px);
+  transition:.6s ease;
+}
+
+#typedText.show{
+  opacity:1;
+  transform:none;
+}
+
+/* default placeholder animation */
+.placeholder{
+  color:#c7c9ff;
+  font-style:italic;
+  opacity:.75;
+  animation:fadePulse 1.6s ease-in-out infinite;
+}
+
+@keyframes fadePulse{
+  0%{opacity:.4}
+  50%{opacity:.85}
+  100%{opacity:.4}
+}
+
+
+/* ================= TECH STACK ================= */
+.tech-float-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:50px;
+}
+
+.tech-float{
+  padding:14px 40px;
+  border-radius:999px;
+  background:var(--gradient);
+  color:#fff;
+  width:max-content;
+  animation:floatLR 5s ease-in-out infinite;
+}
+
+@keyframes floatLR{
+  0%{transform:translateX(-40px)}
+  50%{transform:translateX(40px)}
+  100%{transform:translateX(-40px)}
+}
+
+.tech-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.tech-box{
+  height:85px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  transition:.4s ease;
+}
+
+.tech-box:hover{
+  box-shadow:0 0 35px var(--glow);
+  transform:translateY(-6px);
+}
+
+/* ================= PROJECTS ================= */
+.project-card{
+  position:relative;
+  height:360px;
+  border-radius:26px;
+  overflow:hidden;
+}
+
+.project-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.8s;
+}
+
+.project-card:hover img{
+  transform:scale(1.12);
+}
+
+.project-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(7,7,22,.95),rgba(7,7,22,.4));
+  opacity:0;
+  transition:.4s;
+}
+
+.project-content{
+  position:absolute;
+  bottom:-100%;
+  padding:26px;
+  transition:.6s;
+}
+
+.project-title{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  padding:16px 20px;
+  font-weight:600;
+  font-size:16px;
+  color:#ffffff;
+  z-index:3;
+  background:linear-gradient(
+    to bottom,
+    rgba(7,7,22,.95),
+    rgba(7,7,22,.55),
+    transparent
+  );
+}
+
+.project-card:hover .project-overlay{opacity:1}
+.project-card:hover .project-content{bottom:0}
+
+.project-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:999px;
+  background:var(--gradient);
+  color:#fff;
+  font-size:12px;
+  margin:8px 8px 0 0;
+}
+/* ================= CONTACT ANIMATION ================= */
+
+.contact-card{
+  font-size:18px;
+  animation:contactFloat 4s ease-in-out infinite;
+}
+
+/* floating animation */
+@keyframes contactFloat{
+  0%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
+  100%{
+    transform:translateY(0);
+  }
+}
+
+/* hover / tap effect */
+.contact-card:hover{
+  box-shadow:0 0 55px var(--glow);
+  transform:translateY(-8px);
+}
+
+/* mobile tap feedback */
+@media (max-width:768px){
+  .contact-card:active{
+    box-shadow:0 0 55px var(--glow);
+    transform:translateY(-6px);
+  }
+}
+
+
+/* ================= MOBILE POLISH ================= */
+@media (max-width:768px){
+
+  /* Reduce vertical spacing */
+  section{
+    padding-top:80px !important;
+    padding-bottom:80px !important;
+  }
+
+  /* Touch feedback instead of hover */
+  .glass:active,
+  .about-card:active,
+  .tech-box:active,
+  .project-card:active,
+  .question-btn:active{
+    box-shadow:0 0 35px var(--glow);
+    transform:translateY(-4px);
+  }
+
+  /* Tech grid layout */
+  .tech-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  /* Better tap targets */
+  .question-btn{
+    padding:18px;
+    font-size:16px;
+  }
+
+  /* Slightly smaller profile image */
+  .profile-img{
+    width:180px;
+    height:180px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full z-50 flex justify-between px-6 py-4">
+  <div class="gradient-text font-bold">SS</div>
+  <div class="gradient-text">SHAIK SAMEER</div>
+  <div onclick="menu.classList.toggle('open')" class="cursor-pointer space-y-1">
+    <div class="w-8 h-1 bg-white"></div>
+    <div class="w-8 h-1 bg-white"></div>
+    <div class="w-8 h-1 bg-white"></div>
+  </div>
+</header>
+
+<!-- MENU -->
+<div id="menu" class="fixed top-0 right-0 w-72 h-full p-8 z-40">
+<nav class="mt-20 space-y-3">
+<a class="menu-link" href="#home">Home</a>
+<a class="menu-link" href="#about">About</a>
+<a class="menu-link" href="#conversation">Conversation</a>
+<a class="menu-link" href="#tech">Tech Stack</a>
+<a class="menu-link" href="#projects">Projects</a>
+<a class="menu-link" href="#contact">Contact</a>
+</nav>
+</div>
+
+<!-- HERO -->
+<section id="home" class="min-h-screen flex items-center justify-center text-center">
+<div>
+  <img src="assets/images/profile.jpg" class="profile-img">
+  <h1 class="text-5xl font-extrabold mb-4 gradient-text">SHAIK SAMEER</h1>
+  <p class="max-w-xl mx-auto text-gray-300">
+    Aspiring software developer passionate about building real-world applications, 
+    solving meaningful problems, and exploring Artificial Intelligence & Generative AI.
+  </p>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-36 px-6">
+<h2 class="text-3xl gradient-text text-center mb-20">About Me</h2>
+<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+  <div class="about-card">
+    <h3 class="gradient-text text-xl mb-6">Education</h3>
+    <div class="about-item">Bachelor of Technology – Electronics & Communication Engineering (2021–2025)</div>
+    <div class="about-item">Higher Secondary – Science Stream</div>
+    <div class="about-item">Certified in Cloud Computing, Data Science</div>
+  </div>
+  <div class="about-card">
+    <h3 class="gradient-text text-xl mb-6">Strengths</h3>
+    <div class="about-item">Strong Java and object-oriented programming foundation</div>
+    <div class="about-item">Structured problem-solving with clear logical thinking</div>
+    <div class="about-item">Effective team collaboration and communication</div>
+    <div class="about-item">Quick learner with adaptability to new technologies</div>
+    <div class="about-item">Backend development with database integration</div>
+  </div>
+</div>
+</section>
+
+<!-- CONVERSATION -->
+<section id="conversation" class="py-36 px-6">
+  <h2 class="text-3xl gradient-text text-center mb-16">Conversation</h2>
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+
+    <div class="space-y-5">
+      <button class="question-btn" onclick="showAnswer(0,this)">
+        Introduction
+      </button>
+      <button class="question-btn" onclick="showAnswer(1,this)">
+        Projects Overview
+      </button>
+      <button class="question-btn" onclick="showAnswer(2,this)">
+        Project Explanation
+      </button>
+      <button class="question-btn" onclick="showAnswer(3,this)">
+        Problem-Solving Approach
+      </button>
+    </div>
+
+    <div class="conversation-box">
+      <p id="typedText" class="placeholder">
+        Select a section to see my introduction.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech" class="py-36 px-6">
+<h2 class="text-3xl gradient-text text-center mb-10">Tech Stack</h2>
+<div class="tech-float-wrapper">
+  <div class="tech-float">🚀 Exploring Artificial Intelligence & Generative AI</div>
+</div>
+<div class="max-w-6xl mx-auto tech-grid">
+  <div class="tech-box"><i class="devicon-java-plain colored"></i><span>Java</span></div>
+  <div class="tech-box"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+  <div class="tech-box"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></div>
+  <div class="tech-box"><i class="devicon-html5-plain colored"></i><span>HTML</span></div>
+  <div class="tech-box"><i class="devicon-css3-plain colored"></i><span>CSS</span></div>
+  <div class="tech-box"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
+  <div class="tech-box"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
+  <div class="tech-box"><i class="devicon-git-plain colored"></i><span>Git</span></div>
+  <div class="tech-box"><i class="devicon-github-original colored"></i><span>GitHub</span></div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-36 px-6">
+<h2 class="text-3xl gradient-text text-center mb-16">Projects</h2>
+
+<div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+
+  <div class="project-card">
+    <img src="assets/images/upi-fraud.jpg">
+    <div class="project-title">UPI Fraud Detection using Machine Learning</div>
+    <div class="project-overlay"></div>
+    <div class="project-content">
+      <p>Built a Random Forest model to detect fraudulent UPI transactions using transaction and user behavior data.
+Improved fraud detection accuracy by identifying unusual transaction patterns.</p>
+      <span class="project-badge">Python</span>
+      <span class="project-badge">Machine Learning</span>
+      <span class="project-badge">Random Forest</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <img src="assets/images/bank-system.jpg">
+    <div class="project-title">Bank Management System</div>
+    <div class="project-overlay"></div>
+    <div class="project-content">
+      <p>Developed a Java-based banking system with account management and transaction handling using JDBC and MySQL.
+Ensured secure operations with proper input validation and database checks.</p>
+      <span class="project-badge">Java</span>
+      <span class="project-badge">JDBC</span>
+      <span class="project-badge">MySQL</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <img src="assets/images/online-shopping.jpg">
+    <div class="project-title">Online Shopping System</div>
+    <div class="project-overlay"></div>
+    <div class="project-content">
+      <p>Created an online shopping application with product listing, cart, and order processing using Java and SQL.
+Designed a simple UI using HTML, CSS, and JavaScript with backend OOP logic.</p>
+      <span class="project-badge">Java</span>
+      <span class="project-badge">JavaScript</span>
+      <span class="project-badge">HTML & CSS</span>
+    </div>
+  </div>
+
+</div>
+</section>
+<!-- CONTACT -->
+<section id="contact" class="py-36 px-6">
+  <h2 class="text-3xl gradient-text text-center mb-14">Contact</h2>
+
+  <div class="flex justify-center">
+    <div class="contact-card glass p-6 text-center">
+      📧 shaik1sameer12@gmail.com
+    </div>
+  </div>
+</section>
+
+
+<footer class="py-8 text-center text-gray-400">© 2025 Shaik Sameer</footer>
+
+<script>
+/* ================= STARS ================= */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+window.onresize = resize;
+resize();
+
+const stars = [];
+for(let i = 0; i < 85; i++){
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: 1.2,
+    s: .3
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(st => {
+    ctx.beginPath();
+    ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,.85)";
+    ctx.fill();
+    st.y += st.s;
+    if(st.y > canvas.height){
+      st.y = 0;
+      st.x = Math.random() * canvas.width;
+    }
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+
+/* ================= CONVERSATION ================= */
+
+const answers = [
+  "I am Shaik Sameer, an aspiring software developer passionate about building real-world applications and continuously improving my technical skills. I enjoy learning new technologies and applying them to practical scenarios.",
+
+  "I have worked on three major projects: UPI Fraud Detection using Machine Learning, a Bank Management System using Java and MySQL, and an Online Shopping System built with Java and web technologies.",
+
+  "In the UPI Fraud Detection project, I focused on identifying suspicious transactions using machine learning techniques. The Bank Management System involved implementing core banking operations with secure data handling. The Online Shopping System included product management, cart handling, checkout flow, and order processing.",
+
+  "I approach problems by understanding requirements clearly, breaking them into smaller logical parts, and building structured solutions. I focus on clean code, proper data handling, and continuous improvement through testing."
+];
+
+const box = document.querySelector(".conversation-box");
+const textEl = document.getElementById("typedText");
+const buttons = document.querySelectorAll(".question-btn");
+
+let ci = 0;
+let timer;
+
+/* default placeholder on load */
+textEl.classList.add("placeholder");
+textEl.innerHTML = "Select a section to see my introduction.";
+
+function showAnswer(i, btn){
+  // button active state
+  buttons.forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  // reset typing
+  clearInterval(timer);
+  textEl.innerHTML = "";
+  textEl.classList.remove("show", "placeholder");
+
+  // re-trigger box animation
+  box.classList.remove("active");
+  void box.offsetWidth;
+  box.classList.add("active");
+
+  // typing animation
+  ci = 0;
+  timer = setInterval(() => {
+    if(ci < answers[i].length){
+      textEl.innerHTML += answers[i][ci++];
+    } else {
+      clearInterval(timer);
+    }
+  }, 22);
+
+  setTimeout(() => textEl.classList.add("show"), 50);
+}
+</script>
+</body> </html>
+
+
+
+
+
+
+
+
+
+
